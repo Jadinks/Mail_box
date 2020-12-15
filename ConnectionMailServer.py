@@ -59,3 +59,12 @@ if __name__ == "__main__":
     body = "Hey, what'sup?\n\n - You"
     send_gmail('projetiosnetwork@gmail.com','projectisfun','alexis.ledoux29@gmail.com',body,
                'OMG Super Important Message')
+
+    conn = create_connection("pythonsqlite.db")
+    if conn is not None:
+        insert_email(conn, (1, "addresse1", "password1", "service1"))
+        insert_mail(conn, (40000, "sender1", "receiver1", "body1", "date1", "subject1", 1))
+
+        conn.close()
+    else:
+        print("Error! cannot create the database connection.")
