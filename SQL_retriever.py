@@ -64,7 +64,8 @@ def select_all_mail(conn):
     cur.execute("SELECT * FROM mail")
 
     rows = cur.fetchall()
-    return rows
+    for r in rows:
+        print(r)
 
 
 def select_mail_order_by(conn):
@@ -74,7 +75,6 @@ def select_mail_order_by(conn):
     rows = cur.fetchall()
     for r in rows:
         print(r)
-
 
 def select_mail_group_sender(conn):
     cur = conn.cursor()
@@ -97,3 +97,5 @@ def select_mail_group_subject(conn):
     for r in rows:
         print(r)
 
+if __name__ == "__main__":
+    select_all_mail(create_connection("pythonsqlite.db"))
