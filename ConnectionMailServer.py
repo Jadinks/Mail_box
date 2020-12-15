@@ -66,7 +66,7 @@ def recup_dataoutlook(mail:str,password:str):
 
 def send_outlook(user, password,receiver,email_text,subject):
     try:
-        email_text = "Subject: " + subject + "\n" + email_text
+        email_text = "Subject: " + subject + "\n\n" + email_text
         server = smtplib.SMTP('smtp-mail.outlook.com', 587)
         server.ehlo()
         server.starttls()
@@ -78,7 +78,7 @@ def send_outlook(user, password,receiver,email_text,subject):
 
 def send_gmail(user, password,receiver,email_text,subject):
     try:
-        email_text = "Subject: " + subject + "\n" + email_text
+        email_text = "Subject: " + subject + "\n\n" + email_text
         server = smtplib.SMTP('smtp.gmail.com', 587)
         server.ehlo()
         server.starttls()
@@ -93,6 +93,6 @@ if __name__ == "__main__":
     #recup_datagmail('projetiosnetwork@gmail.com','projectisfun')
     #recup_dataoutlook('projetiosnetwork@outlook.fr','projectisfunOutlook')
     subject = 'OMG Super Important Message'
-    body = "Hey, what'sup?\n\n - You"
+    body = "Hey, what'sup? - You"
     #send_gmail('projetiosnetwork@gmail.com','projectisfun','projetiosnetwork@outlook.fr',body,'OMG Super Important Message')
-    #send_outlook('projetiosnetwork@outlook.fr','projectisfunOutlook','projetiosnetwork@gmail.com',body,'OMG Super Important Message')
+    #send_outlook('projetiosnetwork@outlook.fr','projectisfunOutlook','projetiosnetwork@gmail.com',body,'OMG Super Important Message !')
