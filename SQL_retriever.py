@@ -1,6 +1,7 @@
 import sqlite3
 from sqlite3 import Error
-
+from datetime import datetime
+import socket
 
 def create_connection(db_file):
     """ create a database connection to a SQLite database """
@@ -31,8 +32,8 @@ def show_result(cur):
 
 def insert_email(conn, project):
     """ Create a new project into the projects table """
-    sql = ''' INSERT INTO email(id,address,password,service)
-              VALUES(?,?,?,?) '''
+    sql = ''' INSERT INTO email(address,password,service)
+              VALUES(?,?,?) '''
     cur = conn.cursor()
     cur.execute(sql, project)
     conn.commit()
@@ -41,8 +42,8 @@ def insert_email(conn, project):
 
 def insert_mail(conn, project):
     """ Create a new project into the projects table """
-    sql = ''' INSERT INTO mail(id,sender,receiver,body,date,subject,email_id)
-              VALUES(?,?,?,?,?,?,?) '''
+    sql = ''' INSERT INTO mail(sender,receiver,body,date,subject,email_id)
+              VALUES(?,?,?,?,?,?) '''
     cur = conn.cursor()
     cur.execute(sql, project)
     conn.commit()
@@ -51,8 +52,8 @@ def insert_mail(conn, project):
 
 def insert_log(conn, project):
     """ Create a new project into the projects table """
-    sql = ''' INSERT INTO log(id,login,ip,date,service)
-              VALUES(?,?,?,?,?) '''
+    sql = ''' INSERT INTO log(type,ip,date,service)
+              VALUES(?,?,?,?) '''
     cur = conn.cursor()
     cur.execute(sql, project)
     conn.commit()
@@ -62,19 +63,19 @@ def insert_log(conn, project):
 def select_all_mail(conn):
     cur = conn.cursor()
     cur.execute("SELECT * FROM mail")
-
     rows = cur.fetchall()
-    for r in rows:
-        print(r)
+    return rows
 
+##### 3)   RETRIEVING EMAILS
 
-def select_mail_order_by(conn):
+def select_mail(conn):
     cur = conn.cursor()
-    cur.execute("SELECT * FROM mail ORDER BY id ASC")
-
+    cur.execute("SELECT * FROM mail")
     rows = cur.fetchall()
     for r in rows:
         print(r)
+
+##### 6)   SORTING EMAILS
 
 def select_mail_group_sender(conn):
     cur = conn.cursor()
@@ -97,5 +98,32 @@ def select_mail_group_subject(conn):
     for r in rows:
         print(r)
 
-if __name__ == "__main__":
-    select_all_mail(create_connection("pythonsqlite.db"))
+##### 8)  SAVING EMAILS TO A FILE 
+
+def email_to_file(conn):
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM mail")
+    rows = cur.fetchall()
+    fichier = open("mail.txt", "a")
+    for r in rows:
+        fichier.write("\n"+r)
+    fichier.close()
+    
+##### 7)   UPDATE LOG
+    
+def update_log(service, obj):
+    conn = create_connection("pythonsqlite.db")
+    
+    date = datetime.date
+    ip = socket.gethostbyname(socket.gethostname())
+    sql = ''' INSERT INTO log(type,ip,date,service)
+              VALUES(?,?,?,?) '''
+    data_tuple = (obj, ip, date, service)
+    try:
+        cur = conn.cursor()
+        cur.execute(sql, data_tuple)
+        return cur
+    except Error as e:
+        print(e)
+
+#fuck mathis#        
