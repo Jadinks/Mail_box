@@ -2,7 +2,7 @@
 import imaplib
 import email
 import smtplib
-from SQL_retriever import all
+from SQL_retriever import *
 
 def recup_datagmail(mail:str,password:str):
     imap = imaplib.IMAP4_SSL('imap.gmail.com')
