@@ -1,6 +1,7 @@
 # coding: utf-8
 import imaplib
 import email
+import smtplib
 
 
 def recup_datagmail(mail:str,password:str):
@@ -32,5 +33,29 @@ def recup_datagmail(mail:str,password:str):
     imap.logout()
 
 
+def send_gmail(user, password,receiver,email_text,subject):
+    try:
+        email_text = """\
+            From: %s
+            To: %s
+            Subject: %s
+
+            %s
+            """ % ('projetiosnetwork@gmail.com', ", ".join('alexis.ledoux29@gmail.com'), subject, email_text)
+        server = smtplib.SMTP('smtp.gmail.com', 587)
+        server.ehlo()
+        server.starttls()
+        server.login(user,password)
+        server.sendmail(user, receiver, email_text)
+        server.close()
+        # ...send emails
+    except:
+        print('Something went wrong...')
+
+
 if __name__ == "__main__":
     recup_datagmail('projetiosnetwork@gmail.com','projectisfun')
+    subject = 'OMG Super Important Message'
+    body = "Hey, what'sup?\n\n - You"
+    send_gmail('projetiosnetwork@gmail.com','projectisfun','alexis.ledoux29@gmail.com',body,
+               'OMG Super Important Message')
