@@ -29,10 +29,30 @@ def show_result(cur):
         print(r)
 
 
+def insert_email(conn, project):
+    """ Create a new project into the projects table """
+    sql = ''' INSERT INTO email(id,address,password,service)
+              VALUES(?,?,?,?) '''
+    cur = conn.cursor()
+    cur.execute(sql, project)
+    conn.commit()
+    return cur.lastrowid
+
+
 def insert_mail(conn, project):
     """ Create a new project into the projects table """
-    sql = ''' INSERT INTO mail(id,sender,receiver,body,date,subject)
-              VALUES(?,?,?,?,?,?) '''
+    sql = ''' INSERT INTO mail(id,sender,receiver,body,date,subject,email_id)
+              VALUES(?,?,?,?,?,?,?) '''
+    cur = conn.cursor()
+    cur.execute(sql, project)
+    conn.commit()
+    return cur.lastrowid
+
+
+def insert_log(conn, project):
+    """ Create a new project into the projects table """
+    sql = ''' INSERT INTO log(id,login,ip,date,service)
+              VALUES(?,?,?,?,?) '''
     cur = conn.cursor()
     cur.execute(sql, project)
     conn.commit()
@@ -57,14 +77,24 @@ def select_mail_order_by(conn):
         print(r)
 
 
-def select_mail_group_by(conn):
+def select_mail_group_sender(conn):
     cur = conn.cursor()
-    cur.execute("SELECT * FROM mail GROUP BY Nom")
-
+    cur.execute("SELECT * FROM mail GROUP BY sender")
     rows = cur.fetchall()
     for r in rows:
         print(r)
 
+def select_mail_group_receiver(conn):
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM mail GROUP BY receiver")
+    rows = cur.fetchall()
+    for r in rows:
+        print(r)
 
-
+def select_mail_group_subject(conn):
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM mail GROUP BY subject")
+    rows = cur.fetchall()
+    for r in rows:
+        print(r)
 
