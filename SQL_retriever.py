@@ -18,7 +18,7 @@ def execute_table(conn, create_table_sql):
     try:
         cur = conn.cursor()
         cur.execute(create_table_sql)
-        return c
+        return cur
     except Error as e:
         print(e)
 
@@ -64,8 +64,7 @@ def select_all_mail(conn):
     cur.execute("SELECT * FROM mail")
 
     rows = cur.fetchall()
-    for r in rows:
-        print(r)
+    return rows
 
 
 def select_mail_order_by(conn):
