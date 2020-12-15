@@ -39,11 +39,6 @@ def insert_mail(conn, project):
     return cur.lastrowid
 
 
-def insert_our_cars():
-    car1 = (1, 'Audi', 52642)
-    insert_cars(conn, car1)
-
-
 def select_all_mail(conn):
     cur = conn.cursor()
     cur.execute("SELECT * FROM mail")
