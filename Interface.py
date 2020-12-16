@@ -2,33 +2,87 @@ from ConnectionMailServer import *
 import sqlite3
 
 
-def choice_email(conn):
-    cur = conn.cursor()
-    cur.execute("SELECT address FROM email")
-    rows = cur.fetchall()
-    print("liste des emails :")
-    listemail = []
-    for r in rows:
-        print(r[0])
-        listemail.append(r[0])
-
-    choice = input("veuillez entrer le nom de l'email que vous voulez ouvrir : ")
+def choice():
+    print("options :")
+    print("a = envoyer mail")
+    print("b = synchro mail")
+    print("c = local")
+    choice = input("veuillez entrer l'option choisi : ")
     validation = False
     while validation == False:
-        if choice in listemail:
+        if choice == 'a':
             validation = True
-        elif choice == "0":
-            return None
+            choice_send_mail()
+        if choice == 'b':
+            validation = True
+            choice_synchro_mail()
+        if choice == 'c':
+            validation = True
+            choice_local()
         else:
-            choice = input("l'email choisi n'existe pas, veuillez en rechoisir un :")
+            choice = input("veuillez entrer une option disponible : ")
 
-    cur.execute("SELECT id FROM email WHERE address = '%s'" % choice)
-    id = cur.fetchone()
-    return int(id[0])
+
+def choice_send_mail():
+    print("options :")
+    print("a = envoyer par outlook")
+    print("b = envoyer par gmail")
+    choice = input("veuillez entrer l'option choisi : ")
+    validation = False
+    while validation == False:
+        if choice == 'a':
+            validation = True
+
+        if choice == 'b':
+            validation = True
+
+        else:
+            choice = input("veuillez entrer une option disponible : ")
+
+
+def choice_synchro_mail():
+    print("options :")
+    print("a = recup outlook")
+    print("b = recup gmail")
+    choice = input("veuillez entrer l'option choisi : ")
+    validation = False
+    while validation == False:
+        if choice == 'a':
+            validation = True
+
+        if choice == 'b':
+            validation = True
+
+        else:
+            choice = input("veuillez entrer une option disponible : ")
+
+
+def choice_local():
+    print("options :")
+    print("a = voir tous les mails")
+    print("b = trier les mails")
+    print("c = voir les logs")
+    print("d = recupérer les mails sur un fichier fait chier")
+    choice = input("veuillez entrer l'option choisi : ")
+    validation = False
+    while validation == False:
+        if choice == 'a':
+            validation = True
+
+        if choice == 'b':
+            validation = True
+
+        if choice == 'c':
+            validation = True
+
+        if choice == 'd':
+            validation = True
+
+        else:
+            choice = input("veuillez entrer une option disponible : ")
 
 
 if __name__ == '__main__':
     conn = create_connection("pythonsqlite.db")
 
-    id = choice_email(conn)
-    print(id)
+    choice()
