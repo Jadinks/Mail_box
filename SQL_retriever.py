@@ -30,6 +30,13 @@ def show_result(cur):
         print(r)
 
 
+def select_id_email(conn):
+    cur = conn.cursor()
+    cur.execute("SELECT id FROM email")
+    id = cur.fetchone()
+    return id
+
+
 def insert_email(conn, project):
     """ Create a new project into the projects table """
     sql = ''' INSERT INTO email(address,password,service)
