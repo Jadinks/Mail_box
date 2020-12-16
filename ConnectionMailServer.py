@@ -15,6 +15,9 @@ def recup_datagmail(mail:str,password:str):
     (status, searchRes) = imap.uid("search",None, 'ALL')
     # Récupération des numéros des messages
     ids = searchRes[0].split()
+    conn = create_connection("pythonsqlite.db")
+    id = select_id_email(conn,mail)
+    drop_mail(conn,id[0])
     for i in range(len(ids)):
         # Récupère seulement l'expéditeur et le sujet dans le header
         (status, res) = imap.uid('fetch', ids[i], '(RFC822)')
@@ -26,11 +29,8 @@ def recup_datagmail(mail:str,password:str):
                 receiver = str(email.header.make_header(email.header.decode_header(msg['To'])))
                 date = str(email.header.make_header(email.header.decode_header(msg['Date'])))
                 body = msg.get_payload()
-                print(receiver)
-                print(date)
-                print('expediteur : ', sender)
-                print('sujet : ', subject)
-                print('body : ', body)
+                mail = (sender,receiver,body,date,subject,id[0])
+                insert_mail(conn,mail)
     imap.close()
     imap.logout()
     update_log("gmail", "sync")
@@ -47,6 +47,9 @@ def recup_dataoutlook(mail:str,password:str):
     (status, searchRes) = imap.uid("search",None, 'ALL')
     # Récupération des numéros des messages
     ids = searchRes[0].split()
+    conn = create_connection("pythonsqlite.db")
+    id = select_id_email(conn, mail)
+    drop_mail(conn, id[0])
     for i in range(len(ids)):
         # Récupère seulement l'expéditeur et le sujet dans le header
         (status, res) = imap.uid('fetch', ids[i], '(RFC822)')
@@ -59,11 +62,8 @@ def recup_dataoutlook(mail:str,password:str):
                     receiver = str(email.header.make_header(email.header.decode_header(msg['To'])))
                     date = str(email.header.make_header(email.header.decode_header(msg['Date'])))
                     body = msg.get_payload()
-                    print(receiver)
-                    print(date)
-                    print('expediteur : ', sender)
-                    print('sujet : ', subject)
-                    print('body : ',body)
+                    mail = (sender, receiver, body, date, subject, id[0])
+                    insert_mail(conn, mail)
                 except:
                     print("wrong mail")
     imap.close()
@@ -104,3 +104,5 @@ if __name__ == "__main__":
     body = "I'm not crazy ?? Are you sure ? - You"
     #send_gmail('projetiosnetwork@gmail.com','projectisfun','projetiosnetwork@outlook.fr',body,'OMG Super Important Message')
     #send_outlook('projetiosnetwork@outlook.fr','projectisfunOutlook','projetiosnetwork@gmail.com',body,'OMG!')
+    conn = create_connection("pythonsqlite.db")
+    #mail_to_file(conn)
