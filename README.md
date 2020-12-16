@@ -18,8 +18,8 @@ You can fork it if you want :)
 # HOW TO USE
 You should follow what's written on the console.
 Each time you want to communicate with a distant webmail server (sending and receiving),
-you are asked you put a mail address and a password. You can use both Gmail and Outlook with
-any email addresse, but be aware that non-secure third parties apps should be able to read
+you are asked to put a mail address and a password. You can use both Gmail and Outlook with
+any email address, but be aware that non-secure third parties apps should be able to read
 mails. We did two email addresses that are ready to do that:
 -GMAIL: projetiosnetwork@gmail.com /PASSWORD: projectisfun
 -OUTLOOK : projetiosnetwork@outlook.fr /PASSWORD: projectisfunOutlook
