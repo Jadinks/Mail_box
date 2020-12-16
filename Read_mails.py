@@ -29,7 +29,7 @@ def display_mails():
     i=1
     for row in rows :
         sender = row[1]
-        receiver = row[3]
+        receiver = row[2]
         subject = row[5]
         print (i,":","From : ", sender, "To : ", receiver, "Subject : ", subject)
         i += 1

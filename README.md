@@ -4,7 +4,7 @@ Alexis Ledoux, Charles NIVESSE, Mathis MEROLLA, Baptiste MARCHAL for an IOS2 pro
 in networks architectures in ESILV 
 # Prerequities
 1. You must install python version 3.7 or later : https://www.python.org/downloads/
-2. make sure you have envirronements variables set up
+2. make sure you have environnements variables set up (especially py/python)
 # WINDOWS
 launch startWindows.bat
 # LINUX

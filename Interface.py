@@ -9,23 +9,23 @@ def choice():
     print("b : synchro mail")
     print("c : local")
     print("d : Quit")
-    choice = input("Please choose an option : ")
+    choiceuser = input("Please choose an option : ")
     validation = False
     while validation == False:
-        if choice == 'a':
+        if choiceuser == 'a':
             validation = True
             choice_send_mail()
-        if choice == 'b':
+        elif choiceuser == 'b':
             validation = True
             choice_synchro_mail()
-        if choice == 'c':
+        elif choiceuser == 'c':
             validation = True
             choice_local()
-        if choice == 'd':
+        elif choiceuser == 'd':
             return
         else:
-            choice = input("Please choose an option : ")
-
+            choiceuser = input("Please choose an option : ")
+    choice()
 
 def choice_send_mail():
     print("options :")
@@ -45,7 +45,7 @@ def choice_send_mail():
             test = send_outlook(address,password,receiver,email_text,subject)
             if test != None:
                 print (test)
-        if choice == 'b':
+        elif choice == 'b':
             validation = True
             address = input("Enter your mail address :")
             password = input("Enter your password :")
@@ -55,7 +55,7 @@ def choice_send_mail():
             test = send_gmail(address, password, receiver, email_text, subject)
             if test != None:
                 print(test)
-        if choice == 'c':
+        elif choice == 'c':
             return
         else:
             choice = input("Please choose an option : ")
@@ -77,14 +77,14 @@ def choice_synchro_mail():
             test = recup_dataoutlook(address,password)
             if test != None:
                 print(test)
-        if choice == 'b':
+        elif choice == 'b':
             validation = True
             address = input("Enter your email address")
             password = input("Enter you password")
             test = recup_datagmail(address, password)
             if test != None:
                 print(test)
-        if choice == 'c':
+        elif choice == 'c':
             return
         else:
             choice = input("Please choose an option : ")
@@ -103,16 +103,16 @@ def choice_local():
         if choice == 'a':
             validation = True
             read_mails()
-        if choice == 'b':
+        elif choice == 'b':
             validation = True
             conn = create_connection("pythonsqlite.db")
             print(select_log(conn))
-        if choice == 'c':
+        elif choice == 'c':
             validation = True
             conn = create_connection("pythonsqlite.db")
             mail_to_file(conn)
             print("Fait")
-        if choice == 'd':
+        elif choice == 'd':
             return
         else:
             choice = input("Please choose an option : ")
