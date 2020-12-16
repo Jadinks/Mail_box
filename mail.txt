@@ -1,6 +1,0 @@
-
-(2, 'projetiosnetwork@outlook.fr', 'projetiosnetwork@gmail.com', 'fuck mathis', 'date', 'subjgzogzozjgné', 1)
-(3, 'projetiosnetwork@outlook.fr', 'projetiosnetwork@gmail.com', 'gh', 'date', 'sgné', 1)
-(4, 'projettwork@outlook.fr', 'projetiosnetwork@gmail.com', 'ghlhkgjb', 'date', 'sgné', 1)
-(5, 'projettwork@outlook.fr', 'projetiosnetwork@gmail.com', 'ghlhkgjb', 'date', 'sagvabgné', 1)
-(6, 'projettwork@outlook.fr', 'projetiosnetwork@gmail.com', 'ghgjb', 'date', 'sagvabgné', 1)
