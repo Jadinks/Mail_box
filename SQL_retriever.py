@@ -127,17 +127,22 @@ def select_mail(conn):
 #        print(r)
     return(rows)
 
-def select_subject_sender_mail(conn):
+def select_mail(conn):
     cur = conn.cursor()
-    cur.execute("SELECT title,sender FROM mail")
+    cur.execute("SELECT * FROM mail")
     rows = cur.fetchall()
 #    for r in rows:
 #        print(r)
     return(rows)
 
+def select_one_mail(conn,id):
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM mail WHERE id = " + str(id))
+    row = cur.fetchall()
+    return(row)
 ###################################################################
 
-########################## 6)   SORTING EMAILS ####################
+########################## 6)   SORTING MAILS ####################
 
 def select_mail_order_sender(conn):
     cur = conn.cursor()
@@ -195,8 +200,7 @@ def update_log(service, obj):
     conn.commit()
     return cur
 
-#####################################################################        
-
+#####################################################################
 
 
 if __name__ == '__main__':
