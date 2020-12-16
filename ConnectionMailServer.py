@@ -17,7 +17,7 @@ def recup_datagmail(mail:str,password:str):
     ids = searchRes[0].split()
     for i in range(len(ids)):
         # Récupère seulement l'expéditeur et le sujet dans le header
-        (status, res) = imap.fetch(ids[i], '(BODY[HEADER.FIELDS (FROM SUBJECT TO DATE)])')
+        (status, res) = imap.uid('fetch', ids[i], '(RFC822)')
         for responsePart in res:
             if isinstance(responsePart, tuple):
                 msg = email.message_from_bytes(responsePart[1])
@@ -25,10 +25,12 @@ def recup_datagmail(mail:str,password:str):
                 subject = str(email.header.make_header(email.header.decode_header(msg['Subject'])))
                 receiver = str(email.header.make_header(email.header.decode_header(msg['To'])))
                 date = str(email.header.make_header(email.header.decode_header(msg['Date'])))
+                body = msg.get_payload()
                 print(receiver)
                 print(date)
                 print('expediteur : ', sender)
                 print('sujet : ', subject)
+                print('body : ', body)
     imap.close()
     imap.logout()
 
@@ -46,7 +48,7 @@ def recup_dataoutlook(mail:str,password:str):
     ids = searchRes[0].split()
     for i in range(len(ids)):
         # Récupère seulement l'expéditeur et le sujet dans le header
-        (status, res) = imap.uid('fetch', ids[i], '(BODY.PEEK[HEADER])')
+        (status, res) = imap.uid('fetch', ids[i], '(RFC822)')
         for responsePart in res:
             if isinstance(responsePart, tuple):
                 try:
@@ -55,10 +57,12 @@ def recup_dataoutlook(mail:str,password:str):
                     subject = str(email.header.make_header(email.header.decode_header(msg['Subject'])))
                     receiver = str(email.header.make_header(email.header.decode_header(msg['To'])))
                     date = str(email.header.make_header(email.header.decode_header(msg['Date'])))
+                    body = msg.get_payload()
                     print(receiver)
                     print(date)
                     print('expediteur : ', sender)
                     print('sujet : ', subject)
+                    print('body : ',body)
                 except:
                     print("wrong mail")
     imap.close()
@@ -66,7 +70,7 @@ def recup_dataoutlook(mail:str,password:str):
 
 def send_outlook(user, password,receiver,email_text,subject):
     try:
-        email_text = "Subject: " + subject + "\n\n" + email_text
+        email_text = "To: " + receiver + "\nSubject: " + subject + "\n\n" + email_text
         server = smtplib.SMTP('smtp-mail.outlook.com', 587)
         server.ehlo()
         server.starttls()
@@ -78,7 +82,7 @@ def send_outlook(user, password,receiver,email_text,subject):
 
 def send_gmail(user, password,receiver,email_text,subject):
     try:
-        email_text = "Subject: " + subject + "\n\n" + email_text
+        email_text = "To: " + receiver + "\nSubject: " + subject + "\n\n" + email_text
         server = smtplib.SMTP('smtp.gmail.com', 587)
         server.ehlo()
         server.starttls()
@@ -93,6 +97,6 @@ if __name__ == "__main__":
     #recup_datagmail('projetiosnetwork@gmail.com','projectisfun')
     #recup_dataoutlook('projetiosnetwork@outlook.fr','projectisfunOutlook')
     subject = 'OMG Super Important Message'
-    body = "Hey, what'sup? - You"
+    body = "I'm not crazy ?? Are you sure ? - You"
     #send_gmail('projetiosnetwork@gmail.com','projectisfun','projetiosnetwork@outlook.fr',body,'OMG Super Important Message')
-    #send_outlook('projetiosnetwork@outlook.fr','projectisfunOutlook','projetiosnetwork@gmail.com',body,'OMG Super Important Message !')
+    #send_outlook('projetiosnetwork@outlook.fr','projectisfunOutlook','projetiosnetwork@gmail.com',body,'OMG!')
