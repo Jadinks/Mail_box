@@ -15,7 +15,7 @@ launch Interface.py directly
 You should have all the code in the project folder. If you want, the source code is also
 on github.com : https://github.com/Jadinks/Mail_box
 You can fork it if you want :)
-#HOW TO USE
+# HOW TO USE
 You should follow what's written on the console.
 Each time you want to communicate with a distant webmail server (sending and receiving),
 you are asked you put a mail address and a password. You can use both Gmail and Outlook with
