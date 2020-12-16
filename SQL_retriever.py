@@ -30,9 +30,9 @@ def show_result(cur):
         print(r)
 
 
-def select_id_email(conn):
+def select_id_email(conn, nom):
     cur = conn.cursor()
-    cur.execute("SELECT id FROM email")
+    cur.execute("SELECT id FROM email WHERE email = '%s'" % nom)
     id = cur.fetchone()
     return id
 
