@@ -6,7 +6,10 @@ from SQL_retriever import *
 
 def recup_datagmail(mail:str,password:str):
     imap = imaplib.IMAP4_SSL('imap.gmail.com')
-    imap.login(mail,password)
+    try:
+        imap.login(mail,password)
+    except Exception as e:
+        return e
     conn = create_connection("pythonsqlite.db")
     if not email_exist(conn,mail):
         insert_email(conn,(mail,password,"gmail"))
@@ -41,7 +44,10 @@ def recup_datagmail(mail:str,password:str):
 
 def recup_dataoutlook(mail:str,password:str):
     imap = imaplib.IMAP4_SSL('outlook.office365.com')
-    imap.login(mail,password)
+    try:
+        imap.login(mail,password)
+    except Exception as e:
+        return e
     conn = create_connection("pythonsqlite.db")
     if not email_exist(conn, mail):
         insert_email(conn, (mail, password, "outlook"))
@@ -86,7 +92,7 @@ def send_outlook(user, password,receiver,email_text,subject):
         server.close()
         update_log("outlook", "send")
     except Exception as e:
-        print(e)
+        return e
 
 def send_gmail(user, password,receiver,email_text,subject):
     try:
@@ -99,7 +105,7 @@ def send_gmail(user, password,receiver,email_text,subject):
         server.close()
         update_log("gmail", "send")
     except Exception as e:
-        print(e)
+        return e
 
 
 if __name__ == "__main__":
@@ -107,12 +113,13 @@ if __name__ == "__main__":
     #drop_all_mail(conn)
     #drop_email(conn)
     #drop_log(conn)
-    recup_datagmail('projetiosnetwork@gmail.com','projectisfun')
-    recup_dataoutlook('projetiosnetwork@outlook.fr','projectisfunOutlook')
+    #recup_datagmail('projetiosnetwork@gmail.com','projectisfun')
+    #recup_dataoutlook('projetiosnetwork@outlook.fr','projectisfunOutlook')
     subject = 'OMG Super Important Message'
     body = "I'm not crazy ?? Are you sure ? - You"
     #send_gmail('projetiosnetwork@gmail.com','projectisfun','projetiosnetwork@outlook.fr',body,'OMG Super Important Message')
     #send_outlook('projetiosnetwork@outlook.fr','projectisfunOutlook','projetiosnetwork@gmail.com',body,'OMG!')
     print(select_all_email(conn))
     print(select_log(conn))
-    mail_to_file(conn)
+    #mail_to_file(conn)
+    input()
