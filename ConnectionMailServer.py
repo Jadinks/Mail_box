@@ -7,6 +7,9 @@ from SQL_retriever import *
 def recup_datagmail(mail:str,password:str):
     imap = imaplib.IMAP4_SSL('imap.gmail.com')
     imap.login(mail,password)
+    conn = create_connection("pythonsqlite.db")
+    if not email_exist(conn,mail):
+        insert_email(conn,(mail,password,"gmail"))
     (status, res) = imap.list()
     # renvoie ('OK', ['nombre de messages']) ou sinon ('NO', ['message erreur'])
     (status, numberMessages) = imap.select('INBOX')
@@ -15,7 +18,7 @@ def recup_datagmail(mail:str,password:str):
     (status, searchRes) = imap.uid("search",None, 'ALL')
     # Récupération des numéros des messages
     ids = searchRes[0].split()
-    conn = create_connection("pythonsqlite.db")
+
     id = select_id_email(conn,mail)
     drop_mail(conn,id[0])
     for i in range(len(ids)):
@@ -39,6 +42,9 @@ def recup_datagmail(mail:str,password:str):
 def recup_dataoutlook(mail:str,password:str):
     imap = imaplib.IMAP4_SSL('outlook.office365.com')
     imap.login(mail,password)
+    conn = create_connection("pythonsqlite.db")
+    if not email_exist(conn, mail):
+        insert_email(conn, (mail, password, "outlook"))
     (status, res) = imap.list()
     # renvoie ('OK', ['nombre de messages']) ou sinon ('NO', ['message erreur'])
     (status, numberMessages) = imap.select('INBOX')
@@ -47,7 +53,6 @@ def recup_dataoutlook(mail:str,password:str):
     (status, searchRes) = imap.uid("search",None, 'ALL')
     # Récupération des numéros des messages
     ids = searchRes[0].split()
-    conn = create_connection("pythonsqlite.db")
     id = select_id_email(conn, mail)
     drop_mail(conn, id[0])
     for i in range(len(ids)):
@@ -98,11 +103,16 @@ def send_gmail(user, password,receiver,email_text,subject):
 
 
 if __name__ == "__main__":
-    #recup_datagmail('projetiosnetwork@gmail.com','projectisfun')
-    #recup_dataoutlook('projetiosnetwork@outlook.fr','projectisfunOutlook')
+    conn = create_connection("pythonsqlite.db")
+    #drop_all_mail(conn)
+    #drop_email(conn)
+    #drop_log(conn)
+    recup_datagmail('projetiosnetwork@gmail.com','projectisfun')
+    recup_dataoutlook('projetiosnetwork@outlook.fr','projectisfunOutlook')
     subject = 'OMG Super Important Message'
     body = "I'm not crazy ?? Are you sure ? - You"
     #send_gmail('projetiosnetwork@gmail.com','projectisfun','projetiosnetwork@outlook.fr',body,'OMG Super Important Message')
     #send_outlook('projetiosnetwork@outlook.fr','projectisfunOutlook','projetiosnetwork@gmail.com',body,'OMG!')
-    conn = create_connection("pythonsqlite.db")
-    #mail_to_file(conn)
+    print(select_all_email(conn))
+    print(select_log(conn))
+    mail_to_file(conn)

@@ -46,6 +46,13 @@ def drop_mail(conn, email_id):
     conn.commit()
     return cur.lastrowid
 
+def drop_all_mail(conn):
+    sql = 'DELETE FROM mail'
+    cur = conn.cursor()
+    cur.execute(sql)
+    conn.commit()
+    return cur.lastrowid
+
 ##################################################################
 
 def select_id_email(conn, nom):
