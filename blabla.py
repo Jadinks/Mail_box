@@ -25,13 +25,13 @@ def main():
     database = r"D:\Network Architecture\Projet\Mail_box\pythonsqlite.db"
     
     sql_create_email_table = """ CREATE TABLE IF NOT EXISTS email (
-                                        id integer auto_increment PRIMARY KEY,
+                                        id INTEGER PRIMARY KEY AUTOINCREMENT,
                                         address text NOT NULL,
                                         password text NOT NULL,
                                         service text NOT NULL); """
     
     sql_create_mail_table = """CREATE TABLE IF NOT EXISTS mail (
-                                        id integer auto_increment PRIMARY KEY,
+                                        id integer PRIMARY KEY AUTOINCREMENT,
                                         sender text NOT NULL, 
                                         receiver text NOT NULL,
                                         body text NOT NULL, 
@@ -41,7 +41,7 @@ def main():
                                         FOREIGN KEY (email_id) REFERENCES email (id));"""
     
     sql_create_log_table = """ CREATE TABLE IF NOT EXISTS log (
-                                        id integer auto_increment PRIMARY KEY,
+                                        id integer PRIMARY KEY AUTOINCREMENT,
                                         type text NOT NULL,
                                         ip text NOT NULL,
                                         date text NOT NULL,
