@@ -24,7 +24,7 @@ def execute_table(conn, create_table_sql):
         print(e)
 
 #################### DROP EVERYTHING ###############################
-        
+
 def drop_email(conn):
     sql = 'DELETE FROM email'
     cur = conn.cursor()
@@ -43,6 +43,13 @@ def drop_mail(conn, email_id):
     sql = 'DELETE FROM mail WHERE email_id=?'
     cur = conn.cursor()
     cur.execute(sql, (email_id,))
+    conn.commit()
+    return cur.lastrowid
+
+def drop_all_mail(conn):
+    sql = 'DELETE FROM mail'
+    cur = conn.cursor()
+    cur.execute(sql)
     conn.commit()
     return cur.lastrowid
 
@@ -157,7 +164,7 @@ def mail_to_file(conn):
     cur = conn.cursor()
     cur.execute("SELECT * FROM mail")
     rows = cur.fetchall()
-    fichier = open("mail.txt", "a")
+    fichier = open("mail.txt", "w")
     for r in rows:
         fichier.write("\n")
         fichier.write(str(r))
