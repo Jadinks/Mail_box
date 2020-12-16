@@ -6,7 +6,10 @@ from SQL_retriever import *
 
 def recup_datagmail(mail:str,password:str):
     imap = imaplib.IMAP4_SSL('imap.gmail.com')
-    imap.login(mail,password)
+    try:
+        imap.login(mail,password)
+    except Exception as e:
+        return e
     conn = create_connection("pythonsqlite.db")
     if not email_exist(conn,mail):
         insert_email(conn,(mail,password,"gmail"))
@@ -41,7 +44,10 @@ def recup_datagmail(mail:str,password:str):
 
 def recup_dataoutlook(mail:str,password:str):
     imap = imaplib.IMAP4_SSL('outlook.office365.com')
-    imap.login(mail,password)
+    try:
+        imap.login(mail,password)
+    except Exception as e:
+        return e
     conn = create_connection("pythonsqlite.db")
     if not email_exist(conn, mail):
         insert_email(conn, (mail, password, "outlook"))
@@ -86,7 +92,7 @@ def send_outlook(user, password,receiver,email_text,subject):
         server.close()
         update_log("outlook", "send")
     except Exception as e:
-        print(e)
+        return e
 
 def send_gmail(user, password,receiver,email_text,subject):
     try:
@@ -99,7 +105,7 @@ def send_gmail(user, password,receiver,email_text,subject):
         server.close()
         update_log("gmail", "send")
     except Exception as e:
-        print(e)
+        return e
 
 
 if __name__ == "__main__":
