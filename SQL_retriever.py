@@ -55,6 +55,17 @@ def select_id_email(conn, nom):
     print(id)
     return id
 
+def email_exist(conn, nom):
+    res = False
+    nom = (nom,)
+    cur = conn.cursor()
+    cur.execute("SELECT address FROM email WHERE address='%s'" % nom)
+    rows = cur.fetchall()
+    for r in rows:
+        if (r == nom):
+            res = True
+    return res
+
 ####################### INSERT INTO DB ###########################
 
 def insert_email(conn, project):
@@ -205,6 +216,7 @@ if __name__ == '__main__':
     
     #mail_to_file(conn)
 
+    #print(email_exist(conn, 'projetiosnetwork@outlook.fr'))
     
     
     
