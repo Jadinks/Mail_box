@@ -202,15 +202,15 @@ def update_log(service, obj):
 if __name__ == '__main__':
     conn = create_connection("pythonsqlite.db")
     
-    email = ('projetiosnetwork@gmail.com','projectisfun',"gmail")
+    #email = ('projetiosnetwork@gmail.com','projectisfun',"gmail")
     
-    bis = ('projetiosnetwork@outlook.fr','projectisfunOutlook',"outlook")
+    #bis = ('projetiosnetwork@outlook.fr','projectisfunOutlook',"outlook")
 
     #insert_email(conn, bis)
     #select_id_email(conn, 'projetiosnetwork@outlook.fr')
     
     
-    mail = ('projettwork@outlook.fr','projetiosnetwork@gmail.com','ghgjb', 'date', 'sagvabgné', 1)
+    #mail = ('projettwork@outlook.fr','projetiosnetwork@gmail.com','ghgjb', 'date', 'sagvabgné', 1)
     
     #insert_mail(conn,mail)
     
@@ -219,6 +219,7 @@ if __name__ == '__main__':
     #select_mail_order_subject(conn)
     
     #select_all_email(conn)
+
     #drop_email(conn)
     
     #drop_mail(conn, 1)
