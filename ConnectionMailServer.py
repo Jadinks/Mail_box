@@ -107,12 +107,13 @@ if __name__ == "__main__":
     #drop_all_mail(conn)
     #drop_email(conn)
     #drop_log(conn)
-    recup_datagmail('projetiosnetwork@gmail.com','projectisfun')
-    recup_dataoutlook('projetiosnetwork@outlook.fr','projectisfunOutlook')
+    #recup_datagmail('projetiosnetwork@gmail.com','projectisfun')
+    #recup_dataoutlook('projetiosnetwork@outlook.fr','projectisfunOutlook')
     subject = 'OMG Super Important Message'
     body = "I'm not crazy ?? Are you sure ? - You"
     #send_gmail('projetiosnetwork@gmail.com','projectisfun','projetiosnetwork@outlook.fr',body,'OMG Super Important Message')
     #send_outlook('projetiosnetwork@outlook.fr','projectisfunOutlook','projetiosnetwork@gmail.com',body,'OMG!')
     print(select_all_email(conn))
     print(select_log(conn))
-    mail_to_file(conn)
+    #mail_to_file(conn)
+    input()
