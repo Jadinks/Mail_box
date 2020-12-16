@@ -33,6 +33,7 @@ def recup_datagmail(mail:str,password:str):
                 print('body : ', body)
     imap.close()
     imap.logout()
+    update_log("gmail", "sync")
 
 
 def recup_dataoutlook(mail:str,password:str):
@@ -67,6 +68,7 @@ def recup_dataoutlook(mail:str,password:str):
                     print("wrong mail")
     imap.close()
     imap.logout()
+    update_log("outlook", "sync")
 
 def send_outlook(user, password,receiver,email_text,subject):
     try:
@@ -77,6 +79,7 @@ def send_outlook(user, password,receiver,email_text,subject):
         server.login(user,password)
         server.sendmail(user,receiver,email_text)
         server.close()
+        update_log("outlook", "send")
     except Exception as e:
         print(e)
 
@@ -89,6 +92,7 @@ def send_gmail(user, password,receiver,email_text,subject):
         server.login(user,password)
         server.sendmail(user,receiver,email_text)
         server.close()
+        update_log("gmail", "send")
     except Exception as e:
         print(e)
 

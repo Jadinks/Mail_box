@@ -1,0 +1,3 @@
+SQL_retriever.py :
+- Select ID_email()
+- delete mailsfromidemail(id_email)
