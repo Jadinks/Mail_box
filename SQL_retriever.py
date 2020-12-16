@@ -66,6 +66,14 @@ def select_all_mail(conn):
     rows = cur.fetchall()
     return rows
 
+
+def drop_mail(conn, email_id):
+    sql = 'DELETE FROM mail WHERE email_id=?'
+    cur = conn.cursor()
+    cur.execute(sql, email_id)
+    conn.commit()
+    return cur.lastrowid
+
 ##### 3)   RETRIEVING EMAILS
 
 def select_mail(conn):
@@ -110,7 +118,7 @@ def email_to_file(conn):
     fichier.close()
     
 ##### 7)   UPDATE LOG
-    
+
 def update_log(service, obj):
     conn = create_connection("pythonsqlite.db")
     
