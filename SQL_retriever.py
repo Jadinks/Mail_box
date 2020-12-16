@@ -127,6 +127,14 @@ def select_mail(conn):
 #        print(r)
     return(rows)
 
+def select_subject_sender_mail(conn):
+    cur = conn.cursor()
+    cur.execute("SELECT title,sender FROM mail")
+    rows = cur.fetchall()
+#    for r in rows:
+#        print(r)
+    return(rows)
+
 ###################################################################
 
 ########################## 6)   SORTING EMAILS ####################
