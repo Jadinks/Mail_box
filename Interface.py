@@ -9,22 +9,22 @@ def choice():
     print("b : synchro mail")
     print("c : local")
     print("d : Quit")
-    choiceuser = input("Please choose an option : ")
+    choice_user = input("Please choose an option : ")
     validation = False
     while validation == False:
-        if choiceuser == 'a':
+        if choice_user == 'a':
             validation = True
             choice_send_mail()
-        elif choiceuser == 'b':
+        elif choice_user == 'b':
             validation = True
             choice_synchro_mail()
-        elif choiceuser == 'c':
+        elif choice_user == 'c':
             validation = True
             choice_local()
-        elif choiceuser == 'd':
+        elif choice_user == 'd':
             return
         else:
-            choiceuser = input("Please choose an option : ")
+            choice_user = input("Please choose an option : ")
     choice()
 
 def choice_send_mail():
@@ -44,7 +44,7 @@ def choice_send_mail():
             email_text = input("Enter your text :")
             test = send_outlook(address,password,receiver,email_text,subject)
             if test != None:
-                print (test)
+                print(test)
         elif choice == 'b':
             validation = True
             address = input("Enter your mail address :")
